@@ -7,6 +7,19 @@ end
 
 def create
   @address = Address.new(whitelist_params)
+  @address.city_id = find_city(params[:address][:city])
+  @address.zip_code = params[:address][:zip_code].to_i
+  @address.state_id = params[:address][:state_id].to_i
+  @address.user_id = params[:address][:user_id]
+  @address.street_address = params[:address][:street_address]
+  if @address.save
+    flash[:success] = "New Address Created"
+    redirect_to @address
+  else
+    flash[:error] = @address.errors.full_messages.first
+    @states = State.all
+    render :new
+  end
 end
 
 def index
@@ -25,16 +38,15 @@ end
 private
 
 def whitelist_params
-  params.permit(:address).permit(:street_address, :secondary_address, "city", :state_id, :zip_code, :user_id)
-  # params[:city_id] = find_city
+  params.permit(:address).permit(:street_address, :secondary_address, :city, :state_id, :zip_code, :user_id)
 end
 
-def find_city
-  result = City.select(:id).where("name = ?", params["city"])
+def find_city(cname)
+  result = City.select(:id).where("name = ?", cname)
   if result.first
     result= result.first.id
   else
-    c = City.new(name: params["city"])
+    c = City.new(name: cname)
     c.save
     c.id
   end

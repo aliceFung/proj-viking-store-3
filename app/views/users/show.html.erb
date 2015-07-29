@@ -18,12 +18,8 @@
 
     <%= link_to "Edit #{@user.full_name}'s Information", edit_user_path(@user.id) %>
     <%= link_to "Delete #{@user.full_name}", user_path(@user.id), method: :delete, data: {confirm: "Do you really want to delete this user?"} %>
-<<<<<<< HEAD
-    <%= link_to "View Saved Addressses", addresses_path(:user_id => @user.id) %>
-=======
     <%= link_to "View Saved Addressses",
           addresses_path(:user_id => @user.id) %>
->>>>>>> ce12cf6107a71c7aff9bcd23074c5b1bc99e3efe
     <%= link_to "View Unplaced Order (Cart)", '#'%>
   </div>
 

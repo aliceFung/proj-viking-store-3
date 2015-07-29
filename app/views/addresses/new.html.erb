@@ -8,6 +8,7 @@
 
 	<p>Owner ID: <%= @address.user.id %> </p>
 	<p>Owner name: <%= link_to "#{@address.user.full_name} (click to view user)", user_path(@address.user.id) %></p>
+	<%= f.text_field :user_id, type: "hidden", value: @address.user_id %>
 
 	 	<%= f.label :street_address %>
 	 	<%= f.text_field :street_address %>
@@ -15,8 +16,8 @@
 	 	<%= f.label :secondary_address %>
 	 	<%= f.text_field :secondary_address %>
 
-	 	<%= f.label "city" %>
-	 	<%= f.text_field "city" %>
+	 	<%= f.label :city %>
+	 	<%= f.text_field :city %>
 
 	 	<%= f.label :state_id %>
 		<%= f.collection_select :state_id,
@@ -26,6 +27,7 @@
 
 	  <%= f.label :zip_code %>
 	 	<%= f.text_field :zip_code %>
+
 
 	 	<%= f.submit "Create New Address"%>
 <% end %>
