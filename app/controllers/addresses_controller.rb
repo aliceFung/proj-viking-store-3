@@ -18,6 +18,7 @@ def create
   else
     flash[:error] = @address.errors.full_messages.first
     @states = State.all
+    @address
     render :new
   end
 end
@@ -38,7 +39,7 @@ end
 private
 
 def whitelist_params
-  params.permit(:address).permit(:street_address, :secondary_address, :city, :state_id, :zip_code, :user_id)
+  params.permit(:address).permit(:street_address, :secondary_address, :city_id, :state_id, :zip_code, :user_id)
 end
 
 def find_city(cname)
